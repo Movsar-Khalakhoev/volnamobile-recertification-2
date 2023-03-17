@@ -1,34 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Filters } from "components/filters";
+import { Header } from "components/header";
+import { Products } from "components/products";
+import { useEffect } from "react";
+import { Container, Row } from "react-bootstrap";
+import { useStore } from "store/use-store";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const fetchProducts = useStore((store) => store.fetchProducts);
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="d-flex flex-column h-100">
+      <Header />
+      <div className="overflow-auto">
+        <Container className="flex flex-column">
+          <Row className="mb-3 mt-3">
+            <Filters />
+          </Row>
+          <Products />
+        </Container>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
