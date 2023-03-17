@@ -30,8 +30,8 @@ export const useStore = create<Store>((set, get) => ({
     set({
       products: getDummyProducts()
         .sort((a, b) => {
-          if (get().sortType === "asc") return a.price < b.price ? -1 : 1;
-          else return a.price < b.price ? 1 : -1;
+          if (get().sortType === "asc") return a.price < b.price ? 1 : -1;
+          else return a.price < b.price ? -1 : 1;
         })
         .filter((product) => product.title.toLowerCase().includes(get().searchValue)),
       isLoading: false,
